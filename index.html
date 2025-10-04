@@ -12,21 +12,15 @@
       background: #f9f9f9;
     }
 
-    h1 {
-      margin-bottom: 0.25rem;
-    }
-    p {
-      margin-top: 0;
-      opacity: 0.7;
-    }
+    h1 { margin-bottom: 0.25rem; }
+    p { margin-top: 0; opacity: 0.7; }
 
-    /* rotating shirt animation */
     @keyframes spin {
       from { transform: rotate(0deg); }
       to { transform: rotate(360deg); }
     }
     .rotating {
-      width: 300px; /* adjust size as needed */
+      width: 300px;
       animation: spin 6s linear infinite;
       margin: 2rem auto;
       display: block;
@@ -37,31 +31,20 @@
   <h1>Welcome to maxtanbootyeffer</h1>
   <p>-maxtanbootyeffer</p>
 
-  <!-- Shirt image -->
-  <img src="goonshirt.jpg" alt="rotating shirt" class="rotating" />
+  <img src="goonshirt.png" alt="rotating shirt" class="rotating" />
 
-  <!-- Background music -->
-  <audio id="bg-music" autoplay loop muted>
+  <audio id="bg-music" autoplay loop>
     <source src="imabigdogbigbearjohnjoaquinsexmusic.mp3" type="audio/mpeg">
     Your browser does not support audio
   </audio>
 
   <script>
-    const audio = document.getElementById('bg-music');
-
-    // When the user clicks anywhere, unmute and keep playing
-    function enableSound() {
-      if (audio.muted) {
-        audio.muted = false;
-        audio.play().catch(err => console.log("Playback error:", err));
-        console.log("Audio unmuted after user interaction");
-      }
-      // Remove listener so it only triggers once
-      window.removeEventListener('click', enableSound);
-    }
-
-    window.addEventListener('click', enableSound);
+    window.addEventListener('load', () => {
+      const audio = document.getElementById('bg-music');
+      audio.play().catch(err => {
+        console.log("Autoplay blocked by browser:", err);
+      });
+    });
   </script>
 </body>
 </html>
-
