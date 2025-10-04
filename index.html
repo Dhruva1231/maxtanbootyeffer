@@ -3,26 +3,31 @@ layout: default
 title: Home
 id: home
 ---
-
-
 <style>
-  .comments-block {
+  /* Container for the comments */
+  #cusdis_thread {
     max-width: 720px;
     margin: 2rem auto;
-  }
-  /* Make sure no parent forces an inner scroll */
-  .comments-block, .comments-block * {
-    overflow: visible !important;
-  }
-  /* Don’t fix heights on main containers */
-  main, section, article, .stage {
+    /* Make sure no parent constrains it */
     height: auto !important;
     overflow: visible !important;
   }
-  html, body {
-    overflow-x: hidden;
+
+  /* If you have wrappers that might constrain height/overflow, un-restrict them */
+  main, section, article, .stage, .wrapper, .container {
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  /* Cusdis injects an iframe; don't force a fixed height */
+  #cusdis_thread iframe {
+    display: block;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto; /* final height will be set by Cusdis script */
   }
 </style>
+
 
 <h1>Welcome to maxtanbootyeffer</h1>
 <p>-maxtanbootyeffer</p>
@@ -52,4 +57,5 @@ id: home
       <small> — {{ post.date | date: "%b %-d, %Y" }}</small></li>
   {% endfor %}
 </ul>
+
 
