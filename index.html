@@ -5,28 +5,81 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>maxtanbootyeffer</title>
   <style>
-    /* make the image rotate forever */
+    body {
+      font-family: system-ui, Arial, sans-serif;
+      text-align: center;
+      margin: 3rem;
+      background: #f9f9f9;
+    }
+
+    h1 {
+      margin-bottom: 0.25rem;
+    }
+    p {
+      margin-top: 0;
+      opacity: 0.7;
+    }
+
+    /* rotating shirt animation */
     @keyframes spin {
       from { transform: rotate(0deg); }
       to { transform: rotate(360deg); }
     }
     .rotating {
-      width: 300px; /* adjust size as you like */
+      width: 300px; /* adjust size as needed */
       animation: spin 6s linear infinite;
-      display: block;
       margin: 2rem auto;
+      display: block;
+    }
+
+    /* play button styling */
+    #play-btn {
+      display: none;
+      padding: 10px 20px;
+      font-size: 1rem;
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+      background: #333;
+      color: #fff;
     }
   </style>
 </head>
 <body>
-  <h1>Welcome to maxtanbootyeffer </h1>
+  <h1>Welcome to maxtanbootyeffer</h1>
   <p>-maxtanbootyeffer</p>
 
-  <img src="goonshirt.jpg" alt="rotating shirt" class="rotating" />
+  <!-- Shirt image -->
+  <img src="shirt.png" alt="rotating shirt" class="rotating" />
 
-  <audio autoplay loop>
+  <!-- Background music -->
+  <audio id="bg-music" autoplay loop muted>
     <source src="imabigdogbigbearjohnjoaquinsexmusic.mp3" type="audio/mpeg">
     Your browser does not support audio
   </audio>
+
+  <!-- Fallback play button -->
+  <button id="play-btn">▶ Play Music</button>
+
+  <script>
+    const audio = document.getElementById('bg-music');
+    const btn = document.getElementById('play-btn');
+
+    // Try to unmute and play automatically
+    window.addEventListener('load', () => {
+      audio.muted = false;
+      audio.play().catch(() => {
+        // If autoplay is blocked, show play button
+        btn.style.display = 'inline-block';
+      });
+    });
+
+    // Manual play button
+    btn.addEventListener('click', () => {
+      audio.muted = false;
+      audio.play();
+      btn.style.display = 'none';
+    });
+  </script>
 </body>
 </html>
