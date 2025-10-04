@@ -31,18 +31,6 @@
       margin: 2rem auto;
       display: block;
     }
-
-    /* play button styling */
-    #play-btn {
-      display: none;
-      padding: 10px 20px;
-      font-size: 1rem;
-      cursor: pointer;
-      border: none;
-      border-radius: 5px;
-      background: #333;
-      color: #fff;
-    }
   </style>
 </head>
 <body>
@@ -58,28 +46,21 @@
     Your browser does not support audio
   </audio>
 
-  <!-- Fallback play button -->
-  <button id="play-btn">▶ Play Music</button>
-
   <script>
     const audio = document.getElementById('bg-music');
-    const btn = document.getElementById('play-btn');
 
-    // Try to unmute and play automatically
-    window.addEventListener('load', () => {
-      audio.muted = false;
-      audio.play().catch(() => {
-        // If autoplay is blocked, show play button
-        btn.style.display = 'inline-block';
-      });
-    });
+    // When the user clicks anywhere, unmute and keep playing
+    function enableSound() {
+      if (audio.muted) {
+        audio.muted = false;
+        audio.play().catch(err => console.log("Playback error:", err));
+        console.log("Audio unmuted after user interaction");
+      }
+      // Remove listener so it only triggers once
+      window.removeEventListener('click', enableSound);
+    }
 
-    // Manual play button
-    btn.addEventListener('click', () => {
-      audio.muted = false;
-      audio.play();
-      btn.style.display = 'none';
-    });
+    window.addEventListener('click', enableSound);
   </script>
 </body>
 </html>
