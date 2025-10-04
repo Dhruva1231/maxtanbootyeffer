@@ -5,56 +5,45 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>maxtanbootyeffer</title>
   <style>
-    body {
-      font-family: system-ui, Arial, sans-serif;
-      text-align: center;
-      margin: 3rem;
-      background: #f9f9f9;
-    }
-
-    h1 { margin-bottom: 0.25rem; }
-    p { margin-top: 0; opacity: 0.7; }
-
-    @keyframes spin {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-    .rotating {
-      width: 300px;
-      animation: spin 6s linear infinite;
-      margin: 2rem auto;
-      display: block;
-    }
+    body{font-family:system-ui,Arial,sans-serif;text-align:center;margin:3rem;background:#f9f9f9}
+    h1{margin-bottom:.25rem}
+    p{margin-top:0;opacity:.7}
+    .stage{position:relative;display:inline-block;margin:2rem auto}
+    .shirt{width:300px;display:block}
+    @keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+    .rotating{animation:spin 6s linear infinite}
+    .cta{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+    .cta button{padding:.75rem 1rem;font-size:1rem;border:none;border-radius:.75rem;background:#111;color:#fff;cursor:pointer}
+    .hidden{display:none}
   </style>
 </head>
 <body>
   <h1>Welcome to maxtanbootyeffer</h1>
   <p>-maxtanbootyeffer</p>
 
-  <img src="goonshirt.jpg" alt="rotating shirt" class="rotating" />
+  <div class="stage" id="stage">
+    <img src="goonshirt.jpg" alt="shirt" id="shirt" class="shirt">
+    <div class="cta" id="cta"><button id="goonBtn">click for goon</button></div>
+  </div>
 
-  <!-- autoplay muted so it always starts -->
-  <audio id="bg-music" autoplay loop muted>
+  <audio id="bg" preload="auto" loop>
     <source src="imabigdogbigbearjohnjoaquinsexmusic.mp3" type="audio/mpeg">
-    Your browser does not support audio
   </audio>
 
   <script>
-    const audio = document.getElementById('bg-music');
+    const btn=document.getElementById('goonBtn');
+    const cta=document.getElementById('cta');
+    const shirt=document.getElementById('shirt');
+    const audio=document.getElementById('bg');
 
-    function unmuteAudio() {
-      if (audio.muted) {
-        audio.muted = false;
-        audio.play().catch(err => console.log("Playback blocked:", err));
-        console.log("Audio unmuted after user interaction");
-      }
-      // Remove listeners so it only triggers once
-      window.removeEventListener('click', unmuteAudio);
-      window.removeEventListener('scroll', unmuteAudio);
+    function start() {
+      audio.play().then(()=>{
+        shirt.classList.add('rotating');
+        cta.classList.add('hidden');
+      }).catch(()=>{});
     }
 
-    window.addEventListener('click', unmuteAudio);
-    window.addEventListener('scroll', unmuteAudio);
+    btn.addEventListener('click', start);
   </script>
 </body>
 </html>
