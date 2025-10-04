@@ -1,0 +1,14 @@
+title: maxtanbootyeffer
+description: Blog
+url: https://maxtanbootyeffer.com
+theme: minima
+
+# Allowed GitHub Pages plugins
+plugins:
+  - jekyll-feed
+
+# Keep clean permalinks
+permalink: /blog/:year/:month/:day/:title/
+
+# Do NOT use baseurl so blog lives at /blog/
+baseurl:
