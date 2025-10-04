@@ -33,16 +33,28 @@
 
   <img src="goonshirt.jpg" alt="rotating shirt" class="rotating" />
 
-  <!-- audio without autoplay -->
-  <audio id="my_audio" src="imabigdogbigbearjohnjoaquinsexmusic.mp3" loop></audio>
+  <!-- autoplay muted so it always starts -->
+  <audio id="bg-music" autoplay loop muted>
+    <source src="imabigdogbigbearjohnjoaquinsexmusic.mp3" type="audio/mpeg">
+    Your browser does not support audio
+  </audio>
 
   <script>
-    window.onload = function() {
-      const audio = document.getElementById("my_audio");
-      audio.play().catch(err => {
-        console.log("Autoplay blocked:", err);
-      });
-    };
+    const audio = document.getElementById('bg-music');
+
+    function unmuteAudio() {
+      if (audio.muted) {
+        audio.muted = false;
+        audio.play().catch(err => console.log("Playback blocked:", err));
+        console.log("Audio unmuted after user interaction");
+      }
+      // Remove listeners so it only triggers once
+      window.removeEventListener('click', unmuteAudio);
+      window.removeEventListener('scroll', unmuteAudio);
+    }
+
+    window.addEventListener('click', unmuteAudio);
+    window.addEventListener('scroll', unmuteAudio);
   </script>
 </body>
 </html>
