@@ -4,14 +4,29 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>maxtanbootyeffer</title>
+  <style>
+    /* make the image rotate forever */
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    .rotating {
+      width: 300px; /* adjust size as you like */
+      animation: spin 6s linear infinite;
+      display: block;
+      margin: 2rem auto;
+    }
+  </style>
 </head>
 <body>
   <h1>Welcome to maxtanbootyeffer </h1>
   <p>-maxtanbootyeffer</p>
 
+  <img src="goonshirt.jpg" alt="rotating shirt" class="rotating" />
+
   <audio autoplay loop>
     <source src="imabigdogbigbearjohnjoaquinsexmusic.mp3" type="audio/mpeg">
-    Your browser is gay
+    Your browser does not support audio
   </audio>
 </body>
 </html>
