@@ -33,19 +33,16 @@
 
   <img src="goonshirt.jpg" alt="rotating shirt" class="rotating" />
 
-  <audio id="bg-music" autoplay loop>
-    <source src="imabigdogbigbearjohnjoaquinsexmusic.mp3" type="audio/mpeg">
-    Your browser does not support audio
-  </audio>
+  <!-- audio without autoplay -->
+  <audio id="my_audio" src="imabigdogbigbearjohnjoaquinsexmusic.mp3" loop></audio>
 
   <script>
-    window.addEventListener('load', () => {
-      const audio = document.getElementById('bg-music');
+    window.onload = function() {
+      const audio = document.getElementById("my_audio");
       audio.play().catch(err => {
-        console.log("Autoplay blocked by browser:", err);
+        console.log("Autoplay blocked:", err);
       });
-    });
+    };
   </script>
 </body>
 </html>
-
