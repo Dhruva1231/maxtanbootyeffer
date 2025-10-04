@@ -1,18 +1,8 @@
-{% if page.url == "/" %}
-  <div id="cusdis_thread"
-       data-host="https://cusdis.com"
-       data-app-id="0613a8d5-b414-4412-a072-528bcdd701d8"
-       data-page-id="home"
-       data-page-url="{{ site.url }}/"
-       data-page-title="{{ site.title }} Home">
-  </div>
-{% else %}
-  <div id="cusdis_thread"
-       data-host="https://cusdis.com"
-       data-app-id="0613a8d5-b414-4412-a072-528bcdd701d8"
-       data-page-id="{{ page.url }}"
-       data-page-url="{{ site.url }}{{ page.url }}"
-       data-page-title="{{ page.title | default: site.title }}">
-  </div>
-{% endif %}
+<div id="cusdis_thread" class="comments-block"
+     data-host="https://cusdis.com"
+     data-app-id="YOUR_APP_ID"
+     data-page-id="{% if page.url == '/' %}home{% else %}{{ page.url }}{% endif %}"
+     data-page-url="{{ site.url }}{% if page.url == '/' %}/{% else %}{{ page.url }}{% endif %}"
+     data-page-title="{{ page.title | default: site.title }}">
+</div>
 <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
