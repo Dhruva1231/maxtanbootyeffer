@@ -1,0 +1,54 @@
+{
+  "timeZone": "America/Los_Angeles",
+  "reports": {
+    "url": "https://7djmb6xj.us-west.insforge.app",
+    "anonKey": "anon_c3eff1ed2c57e0f37d2d3c28a4dd90c23b39adea4bda233961ecdb4fb42ffa4d"
+  },
+  "pairs": [
+    { "id": "josh-darren", "members": ["Josh", "Darren"] },
+    { "id": "dhruva-ashish", "members": ["Dhruva", "Ashish"] },
+    { "id": "ethan-nimal", "members": ["Ethan", "Nimal"] },
+    { "id": "matt-dylan", "members": ["Matt", "Dylan"] }
+  ],
+  "bundles": [
+    {
+      "id": "A",
+      "tasks": [
+        { "text": "Put away DRY dishes", "deadline": "midnight", "days": "daily" }
+      ]
+    },
+    {
+      "id": "B",
+      "tasks": [
+        { "text": "Take out trash", "deadline": "midnight", "days": "daily" },
+        { "text": "Vacuum + mop", "deadline": "midnight", "days": ["sat", "sun"], "once": true }
+      ]
+    },
+    {
+      "id": "C",
+      "tasks": [
+        { "text": "Put away DRY dishes", "deadline": "noon", "days": "daily" },
+        { "text": "Take out trash", "deadline": "noon", "days": "daily" }
+      ]
+    },
+    {
+      "id": "D",
+      "tasks": [
+        { "text": "Clean table + countertop", "deadline": ["noon", "midnight"], "days": "daily" }
+      ]
+    }
+  ],
+  "penalty": {
+    "due": "by Saturday midnight",
+    "tasks": ["Do everyone's dishes", "Buy eggs (24) and bananas (2 bundles)"]
+  },
+  "anchor": {
+    "weekOf": "2026-10-19",
+    "assignment": {
+      "josh-darren": "D",
+      "dhruva-ashish": "C",
+      "ethan-nimal": "B",
+      "matt-dylan": "A"
+    }
+  }
+}

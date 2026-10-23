@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="theme-color" content="#1f2a24" />
+    <title>Chores</title>
+    <link rel="stylesheet" href="/chores/chores.css" />
+    <script type="module" src="/chores/app.js"></script>
+  </head>
+  <body class="chores-page">
+    <main class="chores">
+      <header class="chores-header">
+        <h1>Chores</h1>
+        <p class="chores-status" id="chores-status">Loading…</p>
+        <label class="chores-me">
+          <span>I am</span>
+          <select id="chores-me">
+            <option value="">Everyone (signed out)</option>
+          </select>
+        </label>
+        <div class="chores-auth" id="chores-auth" hidden></div>
+        <p class="chores-override" id="chores-override" hidden></p>
+      </header>
+      <section aria-labelledby="chores-this-week-title">
+        <h2 id="chores-this-week-title">This week</h2>
+        <p class="chores-hint" id="chores-report-hint" hidden></p>
+        <div id="chores-this-week" class="chores-cards"></div>
+      </section>
+      <section aria-labelledby="chores-today-title">
+        <h2 id="chores-today-title">Today</h2>
+        <div id="chores-today"></div>
+      </section>
+      <section aria-labelledby="chores-penalty-title" class="chores-penalty">
+        <h2 id="chores-penalty-title">Missed chores</h2>
+        <div id="chores-penalty"></div>
+      </section>
+      <section aria-labelledby="chores-next-week-title">
+        <h2 id="chores-next-week-title">Next week</h2>
+        <ul id="chores-next-week" class="chores-next"></ul>
+      </section>
+      <noscript>This page needs JavaScript to work out this week's chores.</noscript>
+    </main>
+  </body>
+</html>

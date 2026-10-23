@@ -1,0 +1,218 @@
+/* Styles for /chores only. Every rule is scoped under .chores-page so nothing
+   here can affect the main site even if this file were loaded elsewhere. */
+
+.chores-page {
+  --ch-bg: #f5f3ee;
+  --ch-card: #ffffff;
+  --ch-ink: #1f2a24;
+  --ch-muted: #5d6862;
+  --ch-line: #e2ded4;
+  --ch-accent: #2f6b4f;
+  --ch-me: #fff4d6;
+  --ch-me-line: #e0b84f;
+  margin: 0;
+  background: var(--ch-bg);
+  color: var(--ch-ink);
+  font: 16px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  -webkit-text-size-adjust: 100%;
+}
+
+.chores-page * { box-sizing: border-box; }
+
+.chores-page .chores {
+  max-width: 40rem;
+  margin: 0 auto;
+  padding: 1.25rem 1rem 3rem;
+}
+
+.chores-page h1 { margin: 0; font-size: 1.75rem; letter-spacing: -0.02em; }
+.chores-page h2 { margin: 2rem 0 0.75rem; font-size: 1.15rem; }
+.chores-page h3 {
+  margin: 1rem 0 0.4rem;
+  color: var(--ch-muted);
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.chores-page .chores-status { margin: 0.25rem 0 0.75rem; color: var(--ch-muted); }
+.chores-page .chores-me { margin-top: 0.75rem; }
+
+.chores-page .chores-me { display: flex; align-items: center; gap: 0.5rem; font-weight: 600; }
+.chores-page .chores-me select {
+  min-height: 2.5rem;
+  padding: 0.35rem 0.6rem;
+  border: 1px solid var(--ch-line);
+  border-radius: 0.5rem;
+  background: var(--ch-card);
+  color: inherit;
+  font: inherit;
+}
+
+.chores-page .chores-override {
+  margin: 0.75rem 0 0;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+  background: var(--ch-me);
+  font-size: 0.9rem;
+}
+
+.chores-page .chores-date { margin: 0; font-weight: 600; }
+.chores-page .chores-override code { white-space: nowrap; }
+
+.chores-page ul { margin: 0; padding: 0; list-style: none; }
+
+.chores-page .chores-due li,
+.chores-page .chores-next li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.25rem 0.75rem;
+  padding: 0.65rem 0.8rem;
+  border: 1px solid var(--ch-line);
+  border-radius: 0.6rem;
+  background: var(--ch-card);
+}
+.chores-page .chores-due li + li,
+.chores-page .chores-next li + li { margin-top: 0.4rem; }
+
+.chores-page .chores-task small { color: var(--ch-muted); }
+.chores-page .chores-who { color: var(--ch-muted); font-size: 0.92rem; white-space: nowrap; }
+
+.chores-page .chores-cards { display: grid; gap: 0.75rem; }
+@media (min-width: 34rem) {
+  .chores-page .chores-cards { grid-template-columns: 1fr 1fr; }
+}
+
+.chores-page .chores-card {
+  padding: 0.9rem;
+  border: 1px solid var(--ch-line);
+  border-radius: 0.8rem;
+  background: var(--ch-card);
+}
+.chores-page .chores-card header { display: flex; align-items: center; gap: 0.65rem; margin-bottom: 0.6rem; }
+.chores-page .chores-card li { display: grid; padding: 0.35rem 0; border-top: 1px solid var(--ch-line); }
+.chores-page .chores-card li small { color: var(--ch-muted); }
+.chores-page .chores-pair { font-weight: 700; }
+.chores-page .chores-pair small { color: var(--ch-muted); font-weight: 500; }
+
+.chores-page .chores-letter,
+.chores-page .chores-letter-sm {
+  display: inline-grid;
+  place-items: center;
+  border-radius: 0.5rem;
+  background: var(--ch-accent);
+  color: #fff;
+  font-weight: 800;
+}
+.chores-page .chores-letter { width: 2.25rem; height: 2.25rem; font-size: 1.2rem; }
+.chores-page .chores-letter-sm { min-width: 1.6rem; height: 1.6rem; padding: 0 0.35rem; font-size: 0.85rem; }
+
+.chores-page .is-me { border-color: var(--ch-me-line) !important; background: var(--ch-me) !important; }
+
+.chores-page select:focus-visible { outline: 3px solid var(--ch-me-line); outline-offset: 2px; }
+
+.chores-page #chores-penalty {
+  margin-bottom: 0.5rem;
+  padding: 0.9rem;
+  border: 1px solid #e3b4a8;
+  border-radius: 0.8rem;
+  background: #fbeee9;
+}
+.chores-page #chores-penalty p { margin: 0 0 0.5rem; }
+.chores-page #chores-penalty li { padding-left: 1rem; text-indent: -1rem; font-weight: 600; }
+.chores-page #chores-penalty li::before { content: "• "; }
+
+.chores-page .chores-muted { margin: 0; color: var(--ch-muted); }
+.chores-page .chores-error { margin: 0.5rem 0; color: #a1321b; font-weight: 600; }
+.chores-page .chores-ok { margin: 0.5rem 0; color: var(--ch-accent); font-weight: 600; }
+
+.chores-page .chores-report { display: grid; gap: 0.3rem; }
+.chores-page .chores-report small { color: var(--ch-muted); }
+.chores-page .chores-status-pill {
+  justify-self: start;
+  padding: 0.1rem 0.5rem;
+  border-radius: 999px;
+  background: #fbeee9;
+  color: #8a2d18;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+.chores-page .is-disputed .chores-status-pill { background: #fff4d6; color: #7a5600; }
+.chores-page .is-overturned { opacity: 0.75; }
+.chores-page .is-overturned .chores-status-pill { background: #e7f1ea; color: var(--ch-accent); }
+
+.chores-page .chores-actions { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+
+.chores-page button {
+  min-height: 2.5rem;
+  padding: 0.4rem 0.9rem;
+  border: 1px solid var(--ch-accent);
+  border-radius: 0.5rem;
+  background: var(--ch-accent);
+  color: #fff;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+.chores-page button.chores-quiet { background: var(--ch-card); color: var(--ch-accent); }
+.chores-page button:disabled { opacity: 0.6; cursor: wait; }
+
+.chores-page .chores-hint { margin: -0.4rem 0 0.75rem; color: var(--ch-muted); font-size: 0.92rem; }
+
+.chores-page .chores-card.is-reportable { cursor: pointer; }
+.chores-page .chores-card.is-reportable:hover { border-color: #c9c3b4; }
+.chores-page .chores-card:focus-visible { outline: 3px solid var(--ch-me-line); outline-offset: 2px; }
+.chores-page .chores-card-reports:not(:empty) { display: grid; gap: 0.5rem; margin-top: 0.6rem; padding-top: 0.6rem; border-top: 1px dashed var(--ch-line); }
+
+.chores-page .chores-owes {
+  margin: 0;
+  padding: 0.4rem 0.6rem;
+  border-radius: 0.5rem;
+  background: #fbeee9;
+  color: #8a2d18;
+  font-weight: 700;
+}
+.chores-page .chores-report-list { display: grid; gap: 0.4rem; }
+.chores-page .chores-report { padding: 0.5rem 0.6rem; border-radius: 0.5rem; background: #f8f6f1; font-size: 0.92rem; }
+.chores-page .chores-card li.chores-report { border-top: 0; }
+
+.chores-page .chores-report-box { display: grid; gap: 0.5rem; cursor: default; }
+.chores-page .chores-report-box p { margin: 0; }
+.chores-page .chores-report-box input {
+  width: 100%;
+  min-height: 2.5rem;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid var(--ch-line);
+  border-radius: 0.5rem;
+  background: #fff;
+  color: inherit;
+  font: inherit;
+  font-size: 16px; /* stops iOS zooming into the field */
+}
+.chores-page button:focus-visible,
+.chores-page .chores-report-box input:focus-visible { outline: 3px solid var(--ch-me-line); outline-offset: 2px; }
+
+.chores-page .chores-auth {
+  margin-top: 0.75rem;
+  padding: 0.9rem;
+  border: 1px solid var(--ch-me-line);
+  border-radius: 0.8rem;
+  background: var(--ch-card);
+}
+.chores-page .chores-auth-form { display: grid; gap: 0.5rem; }
+.chores-page .chores-auth-form p { margin: 0; }
+.chores-page .chores-pin-field { display: grid; gap: 0.25rem; font-weight: 600; font-size: 0.92rem; }
+.chores-page .chores-pin-field input {
+  width: 100%;
+  max-width: 12rem;
+  min-height: 2.5rem;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid var(--ch-line);
+  border-radius: 0.5rem;
+  font: inherit;
+  font-size: 16px; /* stops iOS zooming into the field */
+  letter-spacing: 0.3em;
+}
+.chores-page .chores-pin-field input:focus-visible { outline: 3px solid var(--ch-me-line); outline-offset: 2px; }
