@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>HCE Toolkit Flashcards</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+[hidden]{display:none!important}
+body{margin:0}
+:root{padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}
+/* Layout: one centered study column; deck tabs, a single large index card, controls beneath, Quizlet export at the end. */
+:root{
+  --bg:#f3f4ef; --surface:#fffefa; --ink:#1c2420; --muted:#5e6a63; --line:#d9ddd3;
+  --accent:#2d5c4c; --accent-soft:#e1ebe4; --again:#a4492b; --again-soft:#f4e3da;
+  --display:"Newsreader",Georgia,serif; --body:"IBM Plex Sans",system-ui,sans-serif; --mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#141917; --surface:#1d2420; --ink:#e7ebe5; --muted:#9aa69f; --line:#323b36;
+  --accent:#86c2a9; --accent-soft:#233a31; --again:#e59a7c; --again-soft:#3d2820; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#141917; --surface:#1d2420; --ink:#e7ebe5; --muted:#9aa69f; --line:#323b36;
+  --accent:#86c2a9; --accent-soft:#233a31; --again:#e59a7c; --again-soft:#3d2820; color-scheme:dark}
+body{background:var(--bg);color:var(--ink);font:16px/1.5 var(--body)}
+.wrap{max-width:720px;margin:0 auto;padding-block:32px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;gap:24px}
+.eyebrow{font:500 12px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+h1{font:600 clamp(28px,6vw,40px)/1.1 var(--display);margin:6px 0 4px;text-wrap:balance}
+.sub{color:var(--muted);margin:0;max-width:60ch}
+.tabs{display:flex;flex-wrap:wrap;gap:8px}
+.tab{font:500 14px var(--body);border:1px solid var(--line);background:transparent;color:var(--ink);padding:8px 14px;border-radius:999px;cursor:pointer}
+.tab[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--surface)}
+.tab .n{font-family:var(--mono);opacity:.7;margin-left:6px}
+.meta{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;font:13px var(--mono);color:var(--muted)}
+.tally{display:flex;gap:12px}
+.tally b{font-weight:500}
+.bar{height:4px;background:var(--line);border-radius:2px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--accent);width:0;transition:width .25s}
+.card{position:relative;min-height:280px;background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:28px 28px 22px;cursor:pointer;display:flex;flex-direction:column;gap:16px;box-shadow:0 1px 0 var(--line),0 8px 24px -16px rgba(0,0,0,.25);
+  background-image:repeating-linear-gradient(to bottom,transparent 0 31px,var(--line) 31px 32px);background-position:0 70px;background-size:100% calc(100% - 70px);background-repeat:no-repeat}
+.card:focus-visible,.tab:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.card .side{font:500 11px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--accent);border-bottom:2px solid var(--again);padding-bottom:10px;display:flex;justify-content:space-between}
+.card .txt{font:400 clamp(20px,4.2vw,26px)/1.35 var(--display);flex:1;display:flex;align-items:center;text-wrap:pretty;min-width:0}
+.card.back .txt{font:400 18px/1.6 var(--body)}
+.card.back.short .txt{font:600 clamp(24px,5vw,32px)/1.25 var(--display)}
+.card .hint{font:12px var(--mono);color:var(--muted)}
+.controls{display:grid;grid-template-columns:auto 1fr 1fr auto;gap:8px}
+.btn{font:500 15px var(--body);padding:12px 16px;border-radius:6px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
+.btn.again{background:var(--again-soft);border-color:var(--again);color:var(--again)}
+.btn.got{background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+.btn.small{font-size:13px;padding:8px 12px}
+.done{text-align:center;padding:40px 20px}
+.done h2{font:600 28px var(--display);margin:0 0 8px}
+section.export{border-top:1px solid var(--line);padding-top:24px;display:grid;gap:12px}
+section.export h2{font:600 22px var(--display);margin:0}
+section.export ol{margin:0;padding-left:20px;color:var(--muted);display:grid;gap:4px}
+textarea{width:100%;box-sizing:border-box;height:160px;font:12px/1.5 var(--mono);background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:10px;resize:vertical}
+.toast{font:13px var(--mono);color:var(--accent)}
+kbd{font:11px var(--mono);border:1px solid var(--line);border-radius:3px;padding:1px 5px}
+@media (max-width:520px){.controls{grid-template-columns:1fr 1fr}.controls .nav{order:3}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">DATA C104 · Midterm 2 · Thu 10/29</div>
+    <h1>HCE Toolkit Flashcards</h1>
+    <p class="sub">The 11 tools from the bCourses HCE Resources page: definitions, the course's example cases, and the guiding questions each tool asks.</p>
+  </header>
+
+  <div class="tabs" role="group" aria-label="Deck">
+    <button class="tab" id="t-all" data-deck="all" aria-pressed="true">All<span class="n"></span></button>
+    <button class="tab" id="t-def" data-deck="def" aria-pressed="false">Definitions<span class="n"></span></button>
+    <button class="tab" id="t-case" data-deck="case" aria-pressed="false">Case → tool<span class="n"></span></button>
+    <button class="tab" id="t-q" data-deck="q" aria-pressed="false">Question → tool<span class="n"></span></button>
+  </div>
+
+  <div style="display:grid;gap:8px">
+    <div class="meta">
+      <span id="pos">1 / 1</span>
+      <span class="tally"><span>Got it <b id="ng">0</b></span><span>Again <b id="na">0</b></span></span>
+    </div>
+    <div class="bar"><i id="bar"></i></div>
+  </div>
+
+  <div id="card" class="card" tabindex="0" role="button" aria-label="Flip card">
+    <div class="side"><span id="side">Term</span><span id="kind"></span></div>
+    <div class="txt" id="txt"></div>
+    <div class="hint">Click or press <kbd>Space</kbd> to flip</div>
+  </div>
+  <div id="done" class="done card" hidden></div>
+
+  <div class="controls" id="controls">
+    <button class="btn nav" id="prev" aria-label="Previous card">←</button>
+    <button class="btn again" id="again">Again <kbd>1</kbd></button>
+    <button class="btn got" id="got">Got it <kbd>2</kbd></button>
+    <button class="btn nav" id="next" aria-label="Next card">→</button>
+  </div>
+  <div class="row">
+    <button class="btn small" id="shuffle">Shuffle</button>
+    <button class="btn small" id="flipdir">Start from definitions</button>
+    <button class="btn small" id="restart">Restart deck</button>
+  </div>
+
+  <section class="export">
+    <h2>Put it in Quizlet</h2>
+    <ol>
+      <li>Quizlet → Create → Flashcard set → <b>Import</b>.</li>
+      <li>Paste the text below.</li>
+      <li>Between term and definition: <b>Tab</b>. Between cards: <b>New line</b>.</li>
+    </ol>
+    <div class="row"><button class="btn small got" id="copy">Copy all 63 cards</button><span class="toast" id="toast" aria-live="polite"></span></div>
+    <textarea id="ta" readonly aria-label="Quizlet import text"></textarea>
+  </section>
+</div>
+
+<script>
+const D = {"def": [["HCE Toolkit", "A set of STS and History concepts for spotting where human power structures and value choices get built into technical work, and for finding where you can responsibly intervene. Using it is constructive: it should offer ways forward, not only critique."], ["Agency", "The capacity to act or exert power. Technology shapes how people perceive and exercise control over the sociotechnical relations they are part of."], ["Classification", "Sorting beings and knowledge into discrete categories under identifiable principles. Classification systems shape social order, and social order shapes them."], ["Co-production", "Technology and society are mutually constitutive: each makes the other what it is."], ["Identity / Positionality", "Socially conditioned parts of selfhood (gender, race, class, disability, income, immigration status). Covers how you see yourself and how society sees and treats you (positionality). Co-produced with technology."], ["Labor", "The socially organized use of human bodies and lifetimes to reproduce the material conditions of life. Looks at production, working conditions, and how work is valued or exploited. Organized labor is also a political force."], ["Narratives", "Stories that explain who people are, how the world works, and what futures are possible, desirable or inevitable. Technology shapes and is shaped by them. They can feel natural but should always be questioned."], ["Performativity", "Descriptions of the world (concepts, models, classifications, measurements, predictions, automated decisions) can shape or even create the phenomena they claim to describe."], ["Power", "The asymmetric capacity of an agent to structure or alter the behavior and decisions of other agents, populations or systems. Technical power is intertwined with political power."], ["Representation", "Making one thing stand for another. Technologies create representations of people and phenomena that do work in the world, take on a life of their own, and reshape the identity and agency of what they represent."], ["Sociotechnical Systems", "Systems where people and technologies are so intertwined that you cannot isolate the technical part. Large ones spread risk and responsibility widely and unevenly, are hard to regulate, and rarely fail from one single cause."], ["Vulnerability", "Being exposed to others and to the risk of injury. Central to personhood and ethics, unevenly distributed by positionality, and shaped by technology (who becomes vulnerable, and how)."]], "case": [["COMPAS and gig-economy workers (algorithmic decision-making)", "Agency"], ["Real-time interplay of human and machine agency: autonomous vehicles, pilots", "Agency"], ["Patients tracking their health with data apps and devices", "Agency"], ["Google Walkout, unionization", "Agency"], ["Disruptive innovation and the tech-entrepreneur figure", "Agency"], ["Air quality data", "Classification"], ["Racial classification in apartheid South Africa", "Classification (also listed under Performativity)"], ["Risk and vulnerability scoring tools: VI-SPDAT, AFST", "Classification (AFST also appears under Performativity)"], ["Ideas of privacy and social media platforms", "Co-production"], ["Statistical tools and the formation of the nation-state", "Co-production"], ["Ethical codes and professions", "Co-production"], ["Datafied labor conditions and surveillance technologies", "Co-production"], ["Disparate impact of facial recognition and predictive policing on different groups", "Identity / Positionality"], ["Social media activism in civil rights struggles for recognition", "Identity / Positionality"], ["Self-tracking tech built around a self-aware, efficient self", "Identity / Positionality"], ["Gig-economy and platform-based labor", "Labor"], ["Invisible labor", "Labor"], ["Amazon warehouse", "Labor"], ["Narratives of robotics and automating certain kinds of work", "Labor"], ["The algorithmic self", "Performativity"], ["Quetelet's \"Average Man\"", "Performativity"], ["Performance rating and scoring systems", "Performativity"], ["Surveillance capitalism, A/B testing, behaviorism", "Performativity"], ["Predictive policing (urban surveillance; Allegheny Family Screening Tool)", "Performativity (predictive policing also under Power and Identity)"], ["Robert Moses's overpasses", "Power"], ["Population statistics, biopower, eugenics", "Power"], ["The Panopticon, surveillance, predictive policing", "Power"], ["Pima Indian Diabetes Database", "Representation"], ["Ownership of genetic information", "Representation"], ["FSM students protesting being treated as \"information to be processed\"", "Representation"], ["The census and political representation", "Representation"], ["Measuring climate change and exercising citizenship", "Representation"], ["Self-driving cars, nuclear power plants, airplanes, streetlights", "Sociotechnical Systems"], ["Risk society", "Sociotechnical Systems"], ["Social media platforms and the public sphere", "Sociotechnical Systems"], ["Internet of Things, smart cities", "Sociotechnical Systems"]], "q": [["How is human agency delegated to a technology, and how does that change who is responsible?", "Agency"], ["What kinds of acting does the technology amplify, and what kinds does it constrain?", "Agency"], ["Who decided the categories, for what purpose, and can they be revised?", "Classification"], ["Does the thing counted actually count as what we care about? How do we count it?", "Classification"], ["What technology is made together with what part of society, and what is at stake in that?", "Co-production"], ["How do social identities regulate who gets access to technological and political resources?", "Identity / Positionality"], ["What work done by people versus machines is treated as valuable, and how are the rewards allocated?", "Labor"], ["Whose story is it, what does it make seem inevitable, and what alternatives does it crowd out?", "Narratives"], ["How does a classification or prediction create the identities it imposes, and whose aims does that serve?", "Performativity"], ["How does the technology shift the balance of power, in whose favor, and what checks exist?", "Power"], ["Is the power exerted explicitly or covertly?", "Power"], ["How does data \"stand for\" a person or phenomenon, and what makes that stand-in authoritative?", "Representation"], ["How does the life of the data relate to the life of the person it came from?", "Representation"], ["How is risk and responsibility distributed, and why is it hard to name one cause when it fails?", "Sociotechnical Systems"], ["Who is made more exposed to harm by this data representation, and how does that vary by positionality?", "Vulnerability"]]};
+const KIND = {def:"Definition", case:"Case", q:"Guiding question"};
+const all = [
+  ...D.def.map(([a,b])=>({k:"def",f:a,b})),
+  ...D.case.map(([a,b])=>({k:"case",f:a,b})),
+  ...D.q.map(([a,b])=>({k:"q",f:a,b})),
+];
+const $ = id => document.getElementById(id);
+let deck="all", order=[], i=0, flipped=false, reverse=false, got=0, again=0, missed=[];
+function pick(){ return all.filter(c=>deck==="all"||c.k===deck); }
+function shuffle(a){ for(let j=a.length-1;j>0;j--){const r=Math.floor(Math.random()*(j+1));[a[j],a[r]]=[a[r],a[j]];} return a; }
+function start(cards){ order=cards; i=0; flipped=false; got=0; again=0; missed=[]; render(); }
+function render(){
+  const doneEl=$("done"), cardEl=$("card");
+  if(i>=order.length){
+    cardEl.hidden=true; doneEl.hidden=false; $("controls").hidden=true;
+    doneEl.innerHTML = `<h2>Deck done</h2><p>${got} got it, ${again} to review.</p>` +
+      (missed.length?`<button class="btn again" id="redo">Review the ${missed.length} missed</button>`:"");
+    const r=$("redo"); if(r) r.onclick=()=>start(shuffle([...missed]));
+    $("bar").style.width="100%"; $("pos").textContent=`${order.length} / ${order.length}`;
+    return;
+  }
+  cardEl.hidden=false; doneEl.hidden=true; $("controls").hidden=false;
+  const c=order[i];
+  const showFront = flipped===reverse && !(c.k==="def"&&false);
+  const front = reverse && c.k==="def" ? c.b : c.f;
+  const back  = reverse && c.k==="def" ? c.f : c.b;
+  const isBack = flipped;
+  const text = isBack ? back : front;
+  cardEl.classList.toggle("back", isBack);
+  cardEl.classList.toggle("short", isBack && text.length<60);
+  $("side").textContent = isBack ? (c.k==="def"&&!reverse?"Definition":"Answer") : (c.k==="def"?(reverse?"Definition":"Tool"):(c.k==="case"?"Which tool?":"Which tool asks this?"));
+  $("kind").textContent = KIND[c.k];
+  $("txt").textContent = text;
+  $("pos").textContent = `${i+1} / ${order.length}`;
+  $("bar").style.width = (i/order.length*100)+"%";
+  $("ng").textContent=got; $("na").textContent=again;
+}
+function flip(){ flipped=!flipped; render(); }
+function mark(ok){ if(i>=order.length) return; if(ok) got++; else { again++; missed.push(order[i]); } i++; flipped=false; render(); }
+$("card").onclick=flip;
+$("card").onkeydown=e=>{ if(e.key===" "||e.key==="Enter"){e.preventDefault();flip();} };
+$("again").onclick=()=>mark(false);
+$("got").onclick=()=>mark(true);
+$("prev").onclick=()=>{ if(i>0){i--;flipped=false;render();} };
+$("next").onclick=()=>{ if(i<order.length){i++;flipped=false;render();} };
+$("shuffle").onclick=()=>start(shuffle(pick()));
+$("restart").onclick=()=>start(pick());
+$("flipdir").onclick=()=>{ reverse=!reverse; $("flipdir").textContent = reverse?"Start from tool names":"Start from definitions"; flipped=false; render(); };
+document.querySelectorAll(".tab").forEach(t=>{
+  t.querySelector(".n").textContent = t.dataset.deck==="all"?all.length:all.filter(c=>c.k===t.dataset.deck).length;
+  t.onclick=()=>{ deck=t.dataset.deck; document.querySelectorAll(".tab").forEach(x=>x.setAttribute("aria-pressed",x===t)); start(shuffle(pick())); };
+});
+document.addEventListener("keydown",e=>{
+  if(e.target.tagName==="TEXTAREA"||e.target.tagName==="BUTTON"&&e.key===" ") return;
+  if(e.key===" "&&e.target!==$("card")){e.preventDefault();flip();}
+  else if(e.key==="1") mark(false);
+  else if(e.key==="2") mark(true);
+  else if(e.key==="ArrowRight") $("next").click();
+  else if(e.key==="ArrowLeft") $("prev").click();
+});
+const tsv = [
+  ...D.def.map(([a,b])=>a+"\t"+b),
+  ...D.case.map(([a,b])=>"Case: "+a+"\t"+b),
+  ...D.q.map(([a,b])=>"Which tool asks: "+a+"\t"+b),
+].join("\n");
+$("ta").value=tsv;
+$("copy").onclick=()=>{
+  navigator.clipboard.writeText(tsv).then(()=>$("toast").textContent="Copied. Paste it into Quizlet's Import box.")
+    .catch(()=>{ $("ta").focus(); $("ta").select(); $("toast").textContent="Text selected. Press Cmd+C to copy."; });
+};
+start(shuffle(pick()));
+</script>
+</body>
+</html>
